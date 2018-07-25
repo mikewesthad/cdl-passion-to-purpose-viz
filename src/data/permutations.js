@@ -1,15 +1,8 @@
-import data from "./passion-to-purpose-export.json";
+import data from "./firebase-exports";
+import purposeVerbs from "./purpose-verbs";
 import { generateCombinations, shuffle } from "../utils/array-utils";
 
-const purposeVerbs = [
-  "challenge",
-  "protest",
-  "improve",
-  "advocate for",
-  "change"
-];
 const permutations = [];
-
 Object.values(data).forEach(({ passions, purposes }, i) => {
   const purposesWithVerbs = purposes.map(
     (purpose, i) => `${purposeVerbs[i]} ${purpose}`
