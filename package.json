@@ -5,8 +5,12 @@
   "homepage": "https://www.convergencedesignlab.org/web-resources/passion-to-purpose-viz",
   "dependencies": {
     "dotenv": "^6.0.0",
+    "firebase": "^5.3.0",
     "minimist": "^1.2.0",
+    "mobx": "^5.0.3",
+    "mobx-react": "^5.2.3",
     "react": "^16.4.1",
+    "react-app-rewire-mobx": "^1.0.8",
     "react-dom": "^16.4.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
@@ -16,11 +20,14 @@
   },
   "scripts": {
     "clean": "rm -rf ./build",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts eject",
     "push-ftp": "node ./scripts/push-ftp.js --src ./build/** --dest /usr/home/convergence/public_html/convergencedesignlab.org/web-resources/passion-to-purpose-viz",
     "deploy": "npm run clean && npm run build && npm run push-ftp"
+  },
+  "devDependencies": {
+    "react-app-rewired": "^1.5.2"
   }
 }
