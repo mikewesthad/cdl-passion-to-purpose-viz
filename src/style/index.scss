@@ -1,0 +1,66 @@
+@import "./normalize.scss";
+@import "./reset.scss";
+@import "./variables.scss";
+@import "./utils.scss";
+
+body {
+  overflow-x: hidden;
+}
+
+#root {
+  padding-bottom: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0); // Prevent margin collapsing on body
+  position: relative; // For transitions
+}
+
+html {
+  font-size: 15px;
+}
+
+@media (min-width: 800px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 1000px) {
+  html {
+    font-size: 20px;
+  }
+}
+
+body {
+  background: red;
+  font-size: 1rem;
+  background-color: white;
+  font-weight: 400;
+  color: $text-color-dark;
+  min-height: 100vh;
+  position: relative;
+  background: url("../images/geometry.png");
+}
+
+body,
+input,
+button,
+textarea {
+  font-family: $font-primary;
+}
+
+.link {
+  transition: 0.2s ease;
+  color: $color-secondary;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.link:visited {
+  color: $color-secondary;
+}
+
+.link:hover {
+  color: darken($color-secondary, 10%);
+}
+.link:active {
+  color: darken($color-secondary, 20%);
+}
