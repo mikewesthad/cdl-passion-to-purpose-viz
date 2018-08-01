@@ -1,6 +1,6 @@
 import firebase from "../utils/firebase";
 import { observable } from "mobx";
-import { generateCombinations, shuffle } from "../utils/array-utils";
+import { generateRepresentativeCombos } from "../utils/array-utils";
 import { purposeVerbs } from "../data";
 
 const database = firebase.database();
@@ -20,12 +20,10 @@ class Store {
 
     const permutations = [];
     Object.values(this.data).forEach(({ passions, purposes }, i) => {
-      const purposesWithVerbs = purposes.map(
-        (purpose, i) => `${purposeVerbs[i]} ${purpose}`
-      );
-      permutations.push(...generateCombinations(passions, purposesWithVerbs));
+      const purposesWithVerbs = purposes.map((purpose, i) => `${purposeVerbs[i]} ${purpose}`);
+      permutations.push(...generateRepresentativeCombos(passions, purposesWithVerbs, 3));
     });
-    shuffle(permutations);
+    permutations.reverse();
     this.permutations = permutations;
   };
 }
