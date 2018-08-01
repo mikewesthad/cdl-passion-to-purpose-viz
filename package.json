@@ -27,6 +27,9 @@
     "push-ftp": "node ./scripts/push-ftp.js --src ./build/** --dest /usr/home/convergence/public_html/convergencedesignlab.org/web-resources/passion-to-purpose-viz",
     "deploy": "npm run clean && npm run build && npm run push-ftp"
   },
+  "prettier": {
+    "printWidth": 100
+  },
   "devDependencies": {
     "react-app-rewired": "^1.5.2"
   }
