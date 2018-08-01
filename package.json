@@ -31,6 +31,9 @@
     "printWidth": 100
   },
   "devDependencies": {
-    "react-app-rewired": "^1.5.2"
+    "node-sass": "^4.9.2",
+    "react-app-rewire-css-modules": "github:codebandits/react-app-rewire-css-modules",
+    "react-app-rewired": "^1.5.2",
+    "sass-loader": "^7.0.3"
   }
 }
