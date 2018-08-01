@@ -1,0 +1,23 @@
+@import "../../style/variables.scss";
+
+.prompt {
+  text-align: center;
+}
+
+.big {
+  font-size: 1.5rem;
+}
+
+.passion,
+.purpose {
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.passion {
+  color: $color-primary;
+}
+
+.purpose {
+  color: $color-secondary;
+}

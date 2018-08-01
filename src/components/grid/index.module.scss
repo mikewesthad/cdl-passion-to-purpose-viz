@@ -1,0 +1,23 @@
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  margin: -2rem;
+  justify-content: center;
+}
+
+.col {
+  flex: 0 0 50%;
+  padding: 2rem;
+}
+
+.col2 {
+  flex: 0 0 50%;
+  padding: 2rem;
+}
+
+@media (min-width: 950px) {
+  .col {
+    flex: 0 0 33.333%;
+  }
+}

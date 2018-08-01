@@ -1,0 +1,33 @@
+@import "../../style/variables.scss";
+
+$transitionDurationMs: 500;
+$enterTransitionDelayMs: 700;
+
+:export {
+  enterDurationMs: $transitionDurationMs + $enterTransitionDelayMs;
+  exitDurationMs: $transitionDurationMs;
+}
+
+.enter {
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  pointer-events: none; /* Stop interactivity on fading page */
+}
+
+.enterActive {
+  opacity: 1;
+  transition: opacity #{$transitionDurationMs}ms ease-out #{$enterTransitionDelayMs}ms,
+    transform #{$transitionDurationMs}ms ease-out #{$enterTransitionDelayMs}ms;
+}
+
+.exit {
+  opacity: 1;
+}
+
+.exitActive {
+  opacity: 0;
+  transition: opacity #{$transitionDurationMs}ms ease-in,
+    transform #{$transitionDurationMs}ms ease-in;
+}
