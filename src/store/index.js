@@ -19,9 +19,10 @@ class Store {
     this.hasLoaded = true;
 
     const permutations = [];
+    const seed = 2;
     Object.values(this.data).forEach(({ passions, purposes }, i) => {
       const purposesWithVerbs = purposes.map((purpose, i) => `${purposeVerbs[i]} ${purpose}`);
-      permutations.push(...generateRepresentativeCombos(passions, purposesWithVerbs, 3));
+      permutations.push(...generateRepresentativeCombos(passions, purposesWithVerbs, 3, seed));
     });
     permutations.reverse();
     this.permutations = permutations;
