@@ -18,10 +18,10 @@ export function Column({ Component = "div", className, children, ...props }) {
   );
 }
 
-export function Column2({ className, children, ...props }) {
+export function Column2({ Component = "div", className, children, ...props }) {
   return (
-    <Column className={classJoin(className, style.col2)} {...props}>
+    <Component className={classJoin(className, style.col2)} {...props}>
       {children}
-    </Column>
+    </Component>
   );
 }
