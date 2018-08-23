@@ -6,9 +6,9 @@ import { purposeVerbs } from "../data";
 const database = firebase.database();
 
 class Store {
-  @observable data = null;
-  @observable hasLoaded = false;
-  @observable permutations = null;
+  /*prettier-ignore*/ @observable data = null;
+  /*prettier-ignore*/ @observable hasLoaded = false;
+  /*prettier-ignore*/ @observable permutations = null;
 
   constructor() {
     database.ref().on("value", this.onFirebaseValue);
