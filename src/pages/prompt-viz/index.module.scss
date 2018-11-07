@@ -1,0 +1,36 @@
+@import "../../style//variables.scss";
+
+.table {
+  border-collapse: collapse;
+  margin: 2rem auto 0 auto;
+  text-align: left;
+  vertical-align: middle;
+  table-layout: fixed;
+  background: white;
+
+  td {
+    padding: 0.5rem 1rem;
+  }
+
+  th,
+  td {
+    max-width: 18rem;
+  }
+}
+
+.passionHeader,
+.purposeHeader {
+  padding: 0.85rem 1.5rem;
+  border-right: 3px solid white;
+  border-left: 3px solid white;
+}
+
+.passionHeader {
+  background: $color-primary;
+  color: white;
+}
+
+.purposeHeader {
+  background: $color-secondary;
+  color: white;
+}

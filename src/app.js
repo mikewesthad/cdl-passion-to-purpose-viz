@@ -9,7 +9,7 @@ import Nav from "./components/nav";
 import PageTransition from "./components/page-transition";
 import Loading from "./pages/loading";
 import Container from "./components/container";
-import PromptViz from "./pages/prompt-viz";
+import PromptViz from "./pages/prompt-viz/";
 
 const dev = process.env.NODE_ENV === "development";
 const publicUrl = process.env.PUBLIC_URL;
