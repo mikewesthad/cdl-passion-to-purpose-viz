@@ -9,6 +9,7 @@ import Nav from "./components/nav";
 import PageTransition from "./components/page-transition";
 import Loading from "./pages/loading";
 import Container from "./components/container";
+import PromptViz from "./pages/prompt-viz";
 
 const dev = process.env.NODE_ENV === "development";
 const publicUrl = process.env.PUBLIC_URL;
@@ -43,6 +44,7 @@ class App extends Component {
                     <Route exact path="/" render={() => <Generator store={store} />} />
                     <Route path="/questions" render={() => <Questions store={store} />} />
                     <Route path="/responses" render={() => <Responses store={store} />} />
+                    <Route path="/prompt-viz" render={() => <PromptViz store={store} />} />
                     <Redirect to="/" />
                   </Switch>
                 );
