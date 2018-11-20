@@ -30,8 +30,8 @@ class Store {
     this.data = json || {}; // Empty db is null
     this.hasLoaded = true;
 
-    // Parse the rooms and responses into a flat object of {id: response}
-    const allResponses = {};
+    // Parse the rooms and responses into a flat array of [{ id, passions, ... }]
+    const allResponses = [];
     Object.keys(this.data).forEach(roomName => {
       const room = this.data[roomName];
 
@@ -39,22 +39,24 @@ class Store {
         const version = room[versionNumber];
 
         Object.keys(version.responses).forEach(id => {
+          version.responses[id].id = id;
           version.responses[id].roomName = roomName;
           version.responses[id].versionNumber = versionNumber;
-        });
 
-        Object.assign(allResponses, version.responses);
+          allResponses.push(version.responses[id]);
+        });
       });
     });
+    allResponses.sort((a, b) => b.timestamp - a.timestamp); // Most recent first
     this.allResponses = allResponses;
+    this.numResponses = allResponses.length;
 
     // Parse all the responses into arrays of: passions, purposes and passion + purpose
-    const values = Object.values(allResponses);
     const allPassions = [...Array(NUM_PASSIONS)].map(() => []);
     const allPurposes = [...Array(NUM_PURPOSES)].map(() => []);
     const permutations = [];
     const seed = 2;
-    values.forEach(({ passions, purposes }, i) => {
+    allResponses.forEach(({ passions, purposes }, i) => {
       const purposesWithVerbs = purposes.map((purpose, i) => `${purposeVerbs[i]} ${purpose}`);
       permutations.push(...generateRepresentativeCombos(passions, purposesWithVerbs, 3, seed));
 
@@ -62,11 +64,9 @@ class Store {
       passions.forEach((p, i) => allPassions[i].unshift(p));
       purposes.forEach((p, i) => allPurposes[i].unshift(p));
     });
-    permutations.reverse();
     this.permutations = permutations;
     this.allPassions = allPassions;
     this.allPurposes = allPurposes;
-    this.numResponses = values.length;
   };
 }
 

@@ -10,16 +10,14 @@ import PageWrapper from "../components/page-wrapper";
 export default class Responses extends Component {
   render() {
     const { store } = this.props;
-    const entries = Object.entries(store.allResponses);
-    entries.reverse(); // Sort from most recent to least recent
 
     return (
       <PageWrapper>
         <Container>
-          {entries.map(([key, value], i) => {
-            const { passions, purposes, roomName, versionNumber, timestamp } = value;
+          {store.allResponses.map((response, i) => {
+            const { id, passions, purposes, roomName, versionNumber, timestamp } = response;
             return (
-              <div style={{ maxWidth: "700px", margin: "0 auto 1.5rem auto" }} key={key}>
+              <div style={{ maxWidth: "700px", margin: "0 auto 1.5rem auto" }} key={id}>
                 <div
                   style={{
                     fontWeight: "300",
@@ -28,12 +26,9 @@ export default class Responses extends Component {
                     margin: "0 0 0.3rem"
                   }}
                 >
-                  Room name: {roomName}
+                  Room name: {roomName} (game v{versionNumber.replace(/-/g, ".")})
                   <br />
                   Time: {format(timestamp, "MM/DD/YYYY [at] hh:mma")}
-                  <br />
-                  Game Version: v{versionNumber.replace(/-/g, ".")}
-                  <br />
                 </div>
                 <Grid>
                   <Column2>
@@ -49,7 +44,7 @@ export default class Responses extends Component {
 
                     <ul style={{ lineHeight: "1.1rem" }}>
                       {passions.map((passion, i) => (
-                        <li style={{ marginBottom: "0.5rem" }} key={`passion-${key}-${i}`}>
+                        <li style={{ marginBottom: "0.5rem" }} key={`passion-${id}-${i}`}>
                           <div
                             style={{
                               fontSize: "0.75rem",
@@ -78,7 +73,7 @@ export default class Responses extends Component {
                     </div>
                     <ul style={{ lineHeight: "1.1rem" }}>
                       {purposes.map((purpose, i) => (
-                        <li style={{ marginBottom: "0.5rem" }} key={`purpose-${key}-${i}`}>
+                        <li style={{ marginBottom: "0.5rem" }} key={`purpose-${id}-${i}`}>
                           <div
                             style={{
                               fontSize: "0.75rem",

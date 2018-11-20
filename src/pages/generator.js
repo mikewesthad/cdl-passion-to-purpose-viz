@@ -18,9 +18,8 @@ export default class Generator extends React.Component {
 
   generate = () => {
     const { allResponses } = this.props.store;
-    const key = pick(Object.keys(allResponses));
-    const passion = pick(allResponses[key].passions);
-    const purposes = allResponses[key].purposes;
+    const { passions, purposes } = pick(allResponses);
+    const passion = pick(passions);
     const purposesWithVerbs = purposes.map((purpose, i) => `${purposeVerbs[i]} ${purpose}`);
     const purpose = pick(purposesWithVerbs);
     this.setState({ passion, purpose });
