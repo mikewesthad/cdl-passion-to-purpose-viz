@@ -5,7 +5,7 @@ import { purposeVerbs, passionPrompts, purposePrompts } from "../data";
 const NUM_PASSIONS = passionPrompts.length;
 const NUM_PURPOSES = purposePrompts.length;
 const dev = process.env.NODE_ENV === "development";
-const API_URL = dev ? "http://localhost:3001" : process.env.REACT_BACKEND_URL;
+const API_URL = dev ? "http://localhost:3001" : process.env.REACT_APP_BACKEND_URL;
 
 class Store {
   @observable data = null;
