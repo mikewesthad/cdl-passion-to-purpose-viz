@@ -27,7 +27,7 @@ const NoData = () => (
 class App extends Component {
   render() {
     const hasLoaded = store.hasLoaded;
-    const hasData = store.data !== null && Object.keys(store.data).length !== 0;
+    const hasData = store.numResponses !== 0;
 
     return (
       <BrowserRouter basename={basename}>

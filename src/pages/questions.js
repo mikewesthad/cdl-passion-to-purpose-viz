@@ -6,6 +6,7 @@ import { Grid, Column } from "../components/grid";
 import Container from "../components/container";
 import Prompt from "../components/prompt";
 import Toast from "../components/toast";
+import PageWrapper from "../components/page-wrapper";
 
 @observer
 export default class Questions extends Component {
@@ -38,22 +39,24 @@ export default class Questions extends Component {
     const hasUpdates = permutations.length !== renderedPermutations.length;
 
     return (
-      <Container>
-        <Toast shouldShow={hasUpdates} className="text-center">
-          There are new responses! Click{" "}
-          <span className="link" onClick={this.updateToLatest}>
-            here
-          </span>{" "}
-          to update the page.
-        </Toast>
-        <Grid>
-          {renderedPermutations.map(([passion, purpose], i) => (
-            <Column key={i}>
-              <Prompt passion={passion} purpose={purpose} isSmall />
-            </Column>
-          ))}
-        </Grid>
-      </Container>
+      <PageWrapper>
+        <Container>
+          <Toast shouldShow={hasUpdates} className="text-center">
+            There are new responses! Click{" "}
+            <span className="link" onClick={this.updateToLatest}>
+              here
+            </span>{" "}
+            to update the page.
+          </Toast>
+          <Grid>
+            {renderedPermutations.map(([passion, purpose], i) => (
+              <Column key={i}>
+                <Prompt passion={passion} purpose={purpose} isSmall />
+              </Column>
+            ))}
+          </Grid>
+        </Container>
+      </PageWrapper>
     );
   }
 }

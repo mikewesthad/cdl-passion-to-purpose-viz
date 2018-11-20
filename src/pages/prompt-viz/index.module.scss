@@ -1,28 +1,113 @@
-@import "../../style//variables.scss";
+@import "../../style/variables.scss";
+
+.controls {
+  display: inline-flex;
+  justify-content: center;
+  background: white;
+  text-align: left;
+  border: 5px solid #ececec;
+}
+
+.passionControls,
+.purposeControls {
+  padding: 2rem;
+}
+
+.button {
+  display: block;
+  margin: 1rem auto;
+  background: white;
+  color: $color-primary;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.5rem 1.4rem;
+  border: 2.5px solid $color-primary;
+  cursor: pointer;
+}
+
+.close {
+  width: 2rem;
+  height: 2rem;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.25rem;
+  background: white;
+  border-radius: 50%;
+  z-index: 1001;
+}
+
+.tableArea {
+  text-align: center;
+  position: relative;
+  .tableWrap {
+    max-height: 50vh;
+  }
+
+  &.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+
+    .tableWrap {
+      max-height: 85vh;
+    }
+  }
+}
+
+.tableWrap {
+  overflow: auto;
+  display: inline-block;
+  vertical-align: top;
+  max-width: 100%;
+  background: white;
+  border: 5px solid #ececec;
+  position: relative;
+}
 
 .table {
   border-collapse: collapse;
-  margin: 2rem auto 0 auto;
+  border-spacing: 0;
+  table-layout: fixed;
   text-align: left;
   vertical-align: middle;
-  table-layout: fixed;
-  background: white;
 
-  td {
-    padding: 0.5rem 1rem;
+  thead,
+  tbody {
+    display: block;
+  }
+
+  thead {
+    position: sticky;
+    top: 0;
+  }
+
+  tr:nth-child(odd) {
+    background: white;
+  }
+
+  tr:nth-child(even) {
+    background: #f7f7f7;
   }
 
   th,
   td {
-    max-width: 18rem;
+    border-right: 5px solid white;
+
+    &:last-child {
+      border-right: 0;
+    }
   }
 }
 
-.passionHeader,
-.purposeHeader {
-  padding: 0.85rem 1.5rem;
-  border-right: 3px solid white;
-  border-left: 3px solid white;
+.cell {
+  width: 20rem;
+  padding: 0.8rem 1.4rem;
 }
 
 .passionHeader {

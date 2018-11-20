@@ -1,6 +1,5 @@
 import React from "react";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import PageWrapper from "../page-wrapper";
 import style from "./index.module.scss";
 
 const classNameMap = {
@@ -52,9 +51,7 @@ export default function PageTransition({ pageKey, children }) {
         classNames={classNameMap}
         onExited={scrollToTop}
       >
-        <div>
-          <PageWrapper>{children}</PageWrapper>
-        </div>
+        <div>{children}</div>
       </CSSTransition>
     </TransitionGroup>
   );

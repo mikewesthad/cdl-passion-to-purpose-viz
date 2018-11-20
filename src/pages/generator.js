@@ -4,6 +4,7 @@ import Prompt from "../components/prompt";
 import Button from "../components/button";
 import { pick } from "../utils/array-utils";
 import { purposeVerbs } from "../data";
+import PageWrapper from "../components/page-wrapper";
 
 export default class Generator extends React.Component {
   state = {
@@ -16,10 +17,10 @@ export default class Generator extends React.Component {
   }
 
   generate = () => {
-    const { data } = this.props.store;
-    const key = pick(Object.keys(data));
-    const passion = pick(data[key].passions);
-    const purposes = data[key].purposes;
+    const { allResponses } = this.props.store;
+    const key = pick(Object.keys(allResponses));
+    const passion = pick(allResponses[key].passions);
+    const purposes = allResponses[key].purposes;
     const purposesWithVerbs = purposes.map((purpose, i) => `${purposeVerbs[i]} ${purpose}`);
     const purpose = pick(purposesWithVerbs);
     this.setState({ passion, purpose });
@@ -28,12 +29,14 @@ export default class Generator extends React.Component {
   render() {
     const { passion, purpose } = this.state;
     return (
-      <Container isSmall={true}>
-        <Prompt passion={passion} purpose={purpose} />
-        <Button style={{ display: "block", margin: "2rem auto 0 auto" }} onClick={this.generate}>
-          Generate Another
-        </Button>
-      </Container>
+      <PageWrapper centerOnPage={true}>
+        <Container isSmall={true}>
+          <Prompt passion={passion} purpose={purpose} />
+          <Button style={{ display: "block", margin: "2rem auto 0 auto" }} onClick={this.generate}>
+            Generate Another
+          </Button>
+        </Container>
+      </PageWrapper>
     );
   }
 }

@@ -2,15 +2,21 @@ import React, { PureComponent, Component } from "react";
 import { observer } from "mobx-react";
 import Container from "../../components/container";
 import { passionPrompts, purposePrompts } from "../../data";
-import { Grid, Column2 } from "../../components/grid";
+import fullscreenSvg from "../../images/arrows-alt-solid.svg";
+import closeSvg from "../../images/times-solid.svg";
 import style from "./index.module.scss";
+import PageWrapper from "../../components/page-wrapper";
+
+import ReactTable from "react-table";
+import "react-table/react-table.css";
+import classJoin from "../../utils/class-join";
 
 class Option extends PureComponent {
   render() {
     const { value, ...otherProps } = this.props;
     return (
       <label style={{ display: "block" }}>
-        <input type="checkbox" value={value} {...otherProps} />
+        <input type="checkbox" style={{ marginRight: "0.25rem" }} value={value} {...otherProps} />
         {value}
       </label>
     );
@@ -36,8 +42,9 @@ class AnswerList extends PureComponent {
 @observer
 export default class PromptViz extends Component {
   state = {
-    selectedPassions: [],
-    selectedPurposes: []
+    selectedPassions: [passionPrompts[0]],
+    selectedPurposes: [purposePrompts[0]],
+    fullscreen: false
   };
 
   togglePassionOption = event => {
@@ -60,23 +67,20 @@ export default class PromptViz extends Component {
 
   render() {
     const { store } = this.props;
-    const { selectedPassions, selectedPurposes } = this.state;
+    const { selectedPassions, selectedPurposes, fullscreen } = this.state;
     const { allPurposes, allPassions, numResponses } = store;
     const selectedPassionIndices = selectedPassions.map(p => passionPrompts.indexOf(p));
     const selectedPurposeIndices = selectedPurposes.map(p => purposePrompts.indexOf(p));
 
-    const fixedWidthStyle = {
-      width: `${100 / (selectedPassions.length + selectedPurposes.length)}%`
-    };
     let headings = [
       selectedPassions.map(p => (
-        <th className={style.passionHeader} style={fixedWidthStyle} scope="col" key={p}>
-          {p}
+        <th className={style.passionHeader} scope="col" key={p}>
+          <div className={style.cell}>{p}</div>
         </th>
       )),
       selectedPurposes.map(p => (
-        <th className={style.purposeHeader} style={fixedWidthStyle} scope="col" key={p}>
-          {p}
+        <th className={style.purposeHeader} scope="col" key={p}>
+          <div className={style.cell}>{p}</div>
         </th>
       ))
     ];
@@ -86,21 +90,25 @@ export default class PromptViz extends Component {
       rows.push(
         <tr key={rowIndex}>
           {selectedPassionIndices.map(passionIndex => (
-            <td style={fixedWidthStyle}>{allPassions[passionIndex][rowIndex]}</td>
+            <td>
+              <div className={style.cell}>{allPassions[passionIndex][rowIndex]}</div>
+            </td>
           ))}
           {selectedPurposeIndices.map(purposeIndex => (
-            <td style={fixedWidthStyle}>{allPurposes[purposeIndex][rowIndex]}</td>
+            <td>
+              <div className={style.cell}>{allPurposes[purposeIndex][rowIndex]}</div>
+            </td>
           ))}
         </tr>
       );
     }
 
     return (
-      <Container>
-        <form>
-          <Grid>
-            <Column2>
-              <h2>Passions</h2>
+      <PageWrapper>
+        <Container style={{ textAlign: "center" }}>
+          <form className={style.controls}>
+            <div className={style.passionControls}>
+              <div style={{ fontWeight: 600, marginBottom: "0.25rem" }}>Passions</div>
               {passionPrompts.map(prompt => (
                 <Option
                   key={prompt}
@@ -109,9 +117,9 @@ export default class PromptViz extends Component {
                   onClick={this.togglePassionOption}
                 />
               ))}
-            </Column2>
-            <Column2>
-              <h2>Purposes</h2>
+            </div>
+            <div className={style.purposeControls}>
+              <div style={{ fontWeight: 600, marginBottom: "0.25rem" }}>Purposes</div>
               {purposePrompts.map(prompt => (
                 <Option
                   key={prompt}
@@ -120,18 +128,28 @@ export default class PromptViz extends Component {
                   onClick={this.togglePurposeOption}
                 />
               ))}
-            </Column2>
-          </Grid>
-        </form>
-        <div style={{ overflowX: "auto" }}>
-          <table className={style.table}>
-            <thead>
-              <tr>{headings}</tr>
-            </thead>
-            <tbody>{rows}</tbody>
-          </table>
-        </div>
-      </Container>
+            </div>
+          </form>
+          <button onClick={() => this.setState({ fullscreen: true })} className={style.button}>
+            Go Fullscreen
+          </button>
+          <div className={classJoin(style.tableArea, fullscreen && style.fullscreen)}>
+            {fullscreen && (
+              <button onClick={() => this.setState({ fullscreen: false })} className={style.button}>
+                Minimize
+              </button>
+            )}
+            <div className={style.tableWrap}>
+              <table className={style.table}>
+                <thead>
+                  <tr>{headings}</tr>
+                </thead>
+                <tbody>{rows}</tbody>
+              </table>
+            </div>
+          </div>
+        </Container>
+      </PageWrapper>
     );
   }
 }
