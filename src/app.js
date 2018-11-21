@@ -10,6 +10,7 @@ import PageTransition from "./components/page-transition";
 import Loading from "./pages/loading";
 import Container from "./components/container";
 import PromptViz from "./pages/prompt-viz/";
+import Rooms from "./pages/rooms";
 
 const dev = process.env.NODE_ENV === "development";
 const publicUrl = process.env.PUBLIC_URL;
@@ -42,9 +43,11 @@ class App extends Component {
                 contents = (
                   <Switch location={location}>
                     <Route exact path="/" render={() => <Generator store={store} />} />
+                    <Route path="/rooms" render={() => <Rooms store={store} />} />
                     <Route path="/questions" render={() => <Questions store={store} />} />
                     <Route path="/responses" render={() => <Responses store={store} />} />
                     <Route path="/prompt-viz" render={() => <PromptViz store={store} />} />
+
                     <Redirect to="/" />
                   </Switch>
                 );

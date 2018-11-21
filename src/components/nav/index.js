@@ -15,6 +15,9 @@ export default class Nav extends Component {
         <NavLink className={style.navLink} to="/responses" activeClassName={style.navLinkActive}>
           Responses
         </NavLink>
+        <NavLink className={style.navLink} to="/rooms" activeClassName={style.navLinkActive}>
+          Rooms
+        </NavLink>
         <NavLink className={style.navLink} to="/prompt-viz" activeClassName={style.navLinkActive}>
           Prompt Viz
         </NavLink>

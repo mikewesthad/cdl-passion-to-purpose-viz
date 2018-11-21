@@ -79,3 +79,13 @@ export function generateRepresentativeCombos(array1, array2, numCombinations, se
   }
   return combinations;
 }
+
+export function alphabeticalSort(array) {
+  return array.sort(alphabeticalSortComparison);
+}
+
+export function alphabeticalSortComparison(a, b) {
+  if (a < b) return -1;
+  else if (a > b) return 1;
+  else return 0;
+}

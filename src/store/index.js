@@ -1,4 +1,4 @@
-import { observable, toJS } from "mobx";
+import { observable, action, toJS } from "mobx";
 import { generateRepresentativeCombos } from "../utils/array-utils";
 import { purposeVerbs, passionPrompts, purposePrompts } from "../data";
 
@@ -9,6 +9,8 @@ const API_URL = dev ? "http://localhost:3001" : process.env.REACT_APP_BACKEND_UR
 
 class Store {
   @observable data = null;
+  @observable roomNames = [];
+  @observable rooms = [];
   @observable allResponses = null;
   @observable numResponses = 0;
   @observable allPurposes = [];
@@ -26,14 +28,20 @@ class Store {
       .then(this.onData);
   }
 
+  @action
   onData = json => {
     this.data = json || {}; // Empty db is null
     this.hasLoaded = true;
+    this.roomNames = Object.keys(this.data);
 
     // Parse the rooms and responses into a flat array of [{ id, passions, ... }]
     const allResponses = [];
-    Object.keys(this.data).forEach(roomName => {
+    const rooms = {};
+    this.roomNames.forEach(roomName => {
       const room = this.data[roomName];
+      let responseCount = 0;
+      let firstResponseTime = Number.MAX_VALUE;
+      let lastResponseTime = 0;
 
       Object.keys(room).forEach(versionNumber => {
         const version = room[versionNumber];
@@ -44,12 +52,18 @@ class Store {
           version.responses[id].versionNumber = versionNumber;
 
           allResponses.push(version.responses[id]);
+
+          responseCount += 1;
+          lastResponseTime = Math.max(lastResponseTime, version.responses[id].timestamp);
+          firstResponseTime = Math.min(firstResponseTime, version.responses[id].timestamp);
         });
       });
+      rooms[roomName] = { responseCount, lastResponseTime, firstResponseTime };
     });
     allResponses.sort((a, b) => b.timestamp - a.timestamp); // Most recent first
     this.allResponses = allResponses;
     this.numResponses = allResponses.length;
+    this.rooms = rooms;
 
     // Parse all the responses into arrays of: passions, purposes and passion + purpose
     const allPassions = [...Array(NUM_PASSIONS)].map(() => []);
